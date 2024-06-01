@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Akrobat-Black';
+    font-style: bold;
+    font-weight: 900;
+    src: local('Akrobat-Black.otf'), url('/fonts/Akrobat-Black.otf') format('woff');
+    font-display: swap;
+  }
+
+  body {
+    @apply overflow-x-hidden;
+  }
+
+  ::selection {
+    @apply bg-secondary;
+  }
+
+  a {
+    @apply font-semibold;
+  }
+
+  h1,
+  h2,
+  h3,
+  h5,
+  h5,
+  h6 {
+    @apply font-semibold text-primary;
+  }
+
+  p,
+  label,
+  input {
+    @apply text-primary;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
