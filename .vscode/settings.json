@@ -1,0 +1,11 @@
+{
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    // for tailwind
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "prettier.endOfLine": "crlf"
+}
