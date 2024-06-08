@@ -7,7 +7,17 @@ import {
     XAxis,
     YAxis,
 } from 'recharts';
-import dayjs from 'dayjs';
+import { useCallback, useState } from 'react';
+
+import { Button } from '@/components/controls';
+import Card from '@/components/Card';
+
+import {
+    StatsByTypeData,
+    StatsDates,
+    StatsType,
+    StatsTypeHuman,
+} from './data';
 
 import type { EngineId } from '@/lib/models/engine';
 
@@ -15,66 +25,94 @@ type EngineStatsProps = {
     engineId: EngineId
 };
 
-type StatsByDates<T> = {
-    byDay: T[];
-    byWeek: T[];
-    byMonth: T[];
-};
+export const EngineStats = ({ engineId: _engineId }: EngineStatsProps): React.ReactElement => {
+    const [statsType, setStatsType] = useState<StatsType>(StatsType.Temperature);
+    const [statsDates, setStatsDates] = useState<StatsDates>(StatsDates.Day);
 
-const TEMPERATURES: StatsByDates<{ name: string, temperature: number }> = {
-    byDay: [
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-    ],
-    byWeek: [
-        { name: dayjs('2024-05-21T15:50:12Z').format('DD.MM'), temperature: 66 },
-        { name: dayjs('2024-05-22T15:50:12Z').format('DD.MM'), temperature: 70 },
-        { name: dayjs('2024-05-23T15:50:12Z').format('DD.MM'), temperature: 83 },
-        { name: dayjs('2024-05-24T15:50:12Z').format('DD.MM'), temperature: 95 },
-        { name: dayjs('2024-05-25T15:50:12Z').format('DD.MM'), temperature: 117 },
-        { name: dayjs('2024-05-26T15:50:12Z').format('DD.MM'), temperature: 71 },
-        { name: dayjs('2024-05-27T15:50:12Z').format('DD.MM'), temperature: 68 },
-    ],
-    byMonth: [
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-        { name: dayjs('2024-05-29T15:50:12Z').format('DD.MM.YYYY'), temperature: 60 },
-    ],
-};
+    const handleChangeStatsType = useCallback((newStatsType: StatsType) => {
+        setStatsType(newStatsType);
+    }, []);
 
-export const EngineStats = ({ engineId: _engineId }: EngineStatsProps): React.ReactElement => (
-    <div className="w-full">
-        <ResponsiveContainer width="100%" height={200}>
-            <LineChart
-                data={TEMPERATURES.byWeek}
-                margin={{
-                    top: 10,
-                    right: 30,
-                    left: 10,
-                    bottom: 10,
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Line
-                    type="natural"
-                    dataKey="temperature"
-                    name="temperature"
-                    stroke="#8884d8"
-                    fill="#8884d8"
-                />
-            </LineChart>
-        </ResponsiveContainer>
-    </div>
-);
+    const handleChangeStatsDates = useCallback((newStatsDates: StatsDates) => {
+        setStatsDates(newStatsDates);
+    }, []);
+
+    return (
+        <div className="flex flex-col">
+            <div className="flex flex-row">
+                <div className="flex flex-col space-y-1">
+                    <Button
+                        variant={statsType === StatsType.Temperature ? 'default' : 'soft'}
+                        disabled={statsType === StatsType.Temperature}
+                        onClick={() => handleChangeStatsType(StatsType.Temperature)}
+                    >
+                        Температура
+                    </Button>
+                    <Button
+                        variant={statsType === StatsType.Vibration ? 'default' : 'soft'}
+                        disabled={statsType === StatsType.Vibration}
+                        onClick={() => handleChangeStatsType(StatsType.Vibration)}
+                    >
+                        Вибрация
+                    </Button>
+                    <Button
+                        variant={statsType === StatsType.ElectromagneticField ? 'default' : 'soft'}
+                        disabled={statsType === StatsType.ElectromagneticField}
+                        onClick={() => handleChangeStatsType(StatsType.ElectromagneticField)}
+                    >
+                        Эл. поле
+                    </Button>
+                </div>
+                <ResponsiveContainer width="100%" height={200}>
+                    <LineChart
+                        data={StatsByTypeData[statsType][statsDates]}
+                        margin={{
+                            top: 10,
+                            right: 30,
+                            left: 10,
+                            bottom: 10,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis dataKey="value" />
+                        <Tooltip />
+                        <Line
+                            type="natural"
+                            dataKey="value"
+                            name={StatsTypeHuman[statsType]}
+                            stroke="#8884d8"
+                            fill="#8884d8"
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
+            <div className="flex flex-col ml-auto">
+                <div className="flex flex-row space-x-1">
+                    <Card.Title className="mr-4">Отобразить за:</Card.Title>
+                    <Button
+                        variant={statsDates === StatsDates.Day ? 'default' : 'soft'}
+                        disabled={statsDates === StatsDates.Day}
+                        onClick={() => handleChangeStatsDates(StatsDates.Day)}
+                    >
+                        День
+                    </Button>
+                    <Button
+                        variant={statsDates === StatsDates.Week ? 'default' : 'soft'}
+                        disabled={statsDates === StatsDates.Week}
+                        onClick={() => handleChangeStatsDates(StatsDates.Week)}
+                    >
+                        Неделя
+                    </Button>
+                    <Button
+                        variant={statsDates === StatsDates.Month ? 'default' : 'soft'}
+                        disabled={statsDates === StatsDates.Month}
+                        onClick={() => handleChangeStatsDates(StatsDates.Month)}
+                    >
+                        Месяц
+                    </Button>
+                </div>
+            </div>
+        </div>
+    );
+};
