@@ -15,8 +15,7 @@ import type { CreateUserRes } from '@/lib/api/routes/users/create';
 import type { LoginUserRes } from '@/lib/api/routes/users/login';
 import type { LogoutUserRes } from '@/lib/api/routes/users/logout';
 
-
-//React context 
+// React context
 interface AuthProviderProps {
     children: React.ReactNode;
 }

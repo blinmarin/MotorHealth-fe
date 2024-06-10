@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 import { setRef } from './setRef';
 
-//компонента Portal для отображения модальных окон за пределами DOM-дерева
+// компонента Portal для отображения модальных окон за пределами DOM-дерева
 interface PortalProps {
     children?: React.ReactNode;
 }

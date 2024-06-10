@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useUser } from '@/context/auth';
 import { UserRole } from '@/lib/models/user';
 
-//хук useAuthMiddleware для проверки авторизации пользователя
+// хук useAuthMiddleware для проверки авторизации пользователя
 type RedirectMainPage = {
     [P in UserRole]: string;
 };

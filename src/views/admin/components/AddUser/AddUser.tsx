@@ -5,7 +5,7 @@ import { Modal } from '@/components/Modal';
 
 import { AddUserModal } from './AddUserModal';
 
-//компонент для отображения модального окна добавления пользователя
+// компонент для отображения модального окна добавления пользователя
 export const AddUser = (): JSX.Element => {
     const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
 

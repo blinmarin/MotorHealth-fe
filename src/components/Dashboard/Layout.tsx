@@ -7,7 +7,7 @@ import { DashboardTitle } from './Title';
 import type { NextLayout } from '@/views/base';
 import type { NavLinkProps } from './Navigation/NavBar';
 
-//компонента DashboardLayout для отображения содержимого страницы
+// компонента DashboardLayout для отображения содержимого страницы
 export interface DashboardLayoutProps {
     links: NavLinkProps[];
 }

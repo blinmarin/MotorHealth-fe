@@ -5,7 +5,7 @@ import type { EngineId } from '@/lib/models/engine';
 import type { UsePaginationResult } from './usePagination';
 import type { Maintenance } from '@/lib/models/maintenance';
 
-//хук useMaintenances для получения данных о технических обслуживаниях конкретного двигателя
+// хук useMaintenances для получения данных о технических обслуживаниях конкретного двигателя
 export const useMaintenances = (
     engineId: EngineId,
     paginationParams?: Pagination<Maintenance>,

@@ -8,7 +8,7 @@ import { MaintanceList } from '@/views/maintenances';
 import type { EngineId } from '@/lib/models/engine';
 import type { NextPageWithLayout } from '@/views/base';
 
-//компонент для отображения истории технических обслуживаний конкретного двигателя
+// компонент для отображения истории технических обслуживаний конкретного двигателя
 
 const MaintenancesPick: NextPageWithLayout = () => {
     const router = useRouter();

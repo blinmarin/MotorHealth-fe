@@ -6,8 +6,7 @@ import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import type { UseAuthMiddlewareProps } from '@/hooks/useAuthMiddleware';
 
-
-//главный компонент AppLayout для отображения содержимого web-интерфейса
+// главный компонент AppLayout для отображения содержимого web-интерфейса
 export type NextPageMeta = {
     title?: string;
     description?: string;

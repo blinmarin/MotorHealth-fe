@@ -5,7 +5,7 @@ import type { APIErrorJSON } from '@/lib/api/error';
 import type { FetchEngineRes } from '@/lib/api/routes/engines/fetch';
 import type { EngineId } from '@/lib/models/engine';
 
-//хук useEngine для получения данных о конкретном двигателе
+// хук useEngine для получения данных о конкретном двигателе
 type UseEngineResult = {
     engine: FetchEngineRes;
     error?: APIErrorJSON;

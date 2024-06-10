@@ -6,7 +6,7 @@ interface ModalProps {
     children?: React.ReactNode;
 }
 
-//компонента Modal для реализации модальных окон
+// компонента Modal для реализации модальных окон
 export const Modal = ({
     open,
     onClose,
